@@ -118,7 +118,7 @@ void *hev_calloc (size_t nmemb, size_t size);
  * If the application sends a lot of data out of ROM (or other static memory),
  * this should be set high.
  */
-#define MEMP_NUM_PBUF                   8192
+#define MEMP_NUM_PBUF                   512
 
 /**
  * MEMP_NUM_RAW_PCB: Number of raw connection PCBs
@@ -131,13 +131,13 @@ void *hev_calloc (size_t nmemb, size_t size);
  * per active UDP "connection".
  * (requires the LWIP_UDP option)
  */
-#define MEMP_NUM_UDP_PCB                1024
+#define MEMP_NUM_UDP_PCB                320
 
 /**
  * MEMP_NUM_TCP_PCB: the number of simulatenously active TCP connections.
  * (requires the LWIP_TCP option)
  */
-#define MEMP_NUM_TCP_PCB                4096
+#define MEMP_NUM_TCP_PCB                256
 
 /**
  * MEMP_NUM_TCP_PCB_LISTEN: the number of listening TCP connections.
@@ -149,13 +149,13 @@ void *hev_calloc (size_t nmemb, size_t size);
  * MEMP_NUM_TCP_SEG: the number of simultaneously queued TCP segments.
  * (requires the LWIP_TCP option)
  */
-#define MEMP_NUM_TCP_SEG                8192
+#define MEMP_NUM_TCP_SEG                512
 
 /**
  * MEMP_NUM_REASSDATA: the number of simultaneously IP packets queued for
  * reassembly (whole packets, not fragments!)
  */
-#define MEMP_NUM_REASSDATA              1
+#define MEMP_NUM_REASSDATA              0
 
 /**
  * MEMP_NUM_ARP_QUEUE: the number of simulateously queued outgoing
@@ -175,27 +175,27 @@ void *hev_calloc (size_t nmemb, size_t size);
  * MEMP_NUM_NETBUF: the number of struct netbufs.
  * (only needed if you use the sequential API, like api_lib.c)
  */
-#define MEMP_NUM_NETBUF                 2
+#define MEMP_NUM_NETBUF                 0
 
 /**
  * MEMP_NUM_NETCONN: the number of struct netconns.
  * (only needed if you use the sequential API, like api_lib.c)
  */
-#define MEMP_NUM_NETCONN               32
+#define MEMP_NUM_NETCONN               0
 
 /**
  * MEMP_NUM_TCPIP_MSG_API: the number of struct tcpip_msg, which are used
  * for callback/timeout API communication.
  * (only needed if you use tcpip.c)
  */
-#define MEMP_NUM_TCPIP_MSG_API          8
+#define MEMP_NUM_TCPIP_MSG_API          4
 
 /**
  * MEMP_NUM_TCPIP_MSG_INPKT: the number of struct tcpip_msg, which are used
  * for incoming packets.
  * (only needed if you use tcpip.c)
  */
-#define MEMP_NUM_TCPIP_MSG_INPKT        8
+#define MEMP_NUM_TCPIP_MSG_INPKT        4
 
 /**
  * PBUF_POOL_SIZE: the number of buffers in the pbuf pool.
@@ -229,7 +229,7 @@ void *hev_calloc (size_t nmemb, size_t size);
  *      IP_OPTIONS_ALLOWED==0: All packets with IP options are dropped.
  *      IP_OPTIONS_ALLOWED==1: IP options are allowed (but not parsed).
  */
-#define IP_OPTIONS_ALLOWED              1
+#define IP_OPTIONS_ALLOWED              0
 
 /**
  * IP_REASSEMBLY==1: Reassemble incoming fragmented IP packets. Note that
@@ -270,7 +270,7 @@ void *hev_calloc (size_t nmemb, size_t size);
 /**
  * IP_DEFAULT_TTL: Default value for Time-To-Live used by transport layers.
  */
-#define IP_DEFAULT_TTL                  255
+#define IP_DEFAULT_TTL                  64
 
 /*
    ---------------------------------------
@@ -386,7 +386,7 @@ void *hev_calloc (size_t nmemb, size_t size);
  * when opening a connection. For the transmit size, this MSS sets
  * an upper limit on the MSS advertised by the remote host.
  */
-#define TCP_MSS                         8191
+#define TCP_MSS                         1460
 
 /**
  * TCP_WND: The size of a TCP window.  This must be at least
@@ -395,19 +395,21 @@ void *hev_calloc (size_t nmemb, size_t size);
  * with scaling applied. Maximum window value in the TCP header
  * will be TCP_WND >> TCP_RCV_SCALE
  */
-#define TCP_WND                         (8 * TCP_MSS)
+#define TCP_WND                         (4 * TCP_MSS)
 
 /**
  * TCP_SND_BUF: TCP sender buffer space (bytes).
  * To achieve good performance, this should be at least 2 * TCP_MSS.
  */
-#define TCP_SND_BUF                     (8 * TCP_MSS)
+#define TCP_SND_BUF                     16384
 
 /**
  * TCP_SND_QUEUELEN: TCP sender buffer space (pbufs). This must be at least
  * as much as (2 * TCP_SND_BUF/TCP_MSS) for things to work.
  */
-#define TCP_SND_QUEUELEN                ((128 * (TCP_SND_BUF) + (TCP_MSS - 1))/(TCP_MSS))
+#define TCP_SND_QUEUELEN                (4 * (TCP_SND_BUF)/(TCP_MSS))
+
+#define TCP_QUEUE_OOSEQ                 0
 
 /*
    ----------------------------------
