@@ -155,7 +155,7 @@ void *hev_calloc (size_t nmemb, size_t size);
  * MEMP_NUM_REASSDATA: the number of simultaneously IP packets queued for
  * reassembly (whole packets, not fragments!)
  */
-#define MEMP_NUM_REASSDATA              0
+#define MEMP_NUM_REASSDATA              1
 
 /**
  * MEMP_NUM_ARP_QUEUE: the number of simulateously queued outgoing
@@ -175,27 +175,27 @@ void *hev_calloc (size_t nmemb, size_t size);
  * MEMP_NUM_NETBUF: the number of struct netbufs.
  * (only needed if you use the sequential API, like api_lib.c)
  */
-#define MEMP_NUM_NETBUF                 0
+#define MEMP_NUM_NETBUF                 2
 
 /**
  * MEMP_NUM_NETCONN: the number of struct netconns.
  * (only needed if you use the sequential API, like api_lib.c)
  */
-#define MEMP_NUM_NETCONN               0
+#define MEMP_NUM_NETCONN               32
 
 /**
  * MEMP_NUM_TCPIP_MSG_API: the number of struct tcpip_msg, which are used
  * for callback/timeout API communication.
  * (only needed if you use tcpip.c)
  */
-#define MEMP_NUM_TCPIP_MSG_API          0
+#define MEMP_NUM_TCPIP_MSG_API          8
 
 /**
  * MEMP_NUM_TCPIP_MSG_INPKT: the number of struct tcpip_msg, which are used
  * for incoming packets.
  * (only needed if you use tcpip.c)
  */
-#define MEMP_NUM_TCPIP_MSG_INPKT        0
+#define MEMP_NUM_TCPIP_MSG_INPKT        8
 
 /**
  * PBUF_POOL_SIZE: the number of buffers in the pbuf pool.
@@ -236,14 +236,14 @@ void *hev_calloc (size_t nmemb, size_t size);
  * this option does not affect outgoing packet sizes, which can be controlled
  * via IP_FRAG.
  */
-#define IP_REASSEMBLY                   0
+#define IP_REASSEMBLY                   1
 
 /**
  * IP_FRAG==1: Fragment outgoing IP packets if their size exceeds MTU. Note
  * that this option does not affect incoming packet sizes, which can be
  * controlled via IP_REASSEMBLY.
  */
-#define IP_FRAG                         0
+#define IP_FRAG                         1
 
 /**
  * IP_REASS_MAXAGE: Maximum time (in multiples of IP_TMR_INTERVAL - so seconds, normally)
@@ -510,7 +510,7 @@ void *hev_calloc (size_t nmemb, size_t size);
  * LWIP_CHECKSUM_ON_COPY==1: Calculate checksum when copying data from
  * application buffers to pbufs.
  */
-#define LWIP_CHECKSUM_ON_COPY           0
+#define LWIP_CHECKSUM_ON_COPY           1
 
 /*
    ---------------------------------------
